@@ -65,3 +65,14 @@ router.patch('/:songId', async (req, res) => {
     }
 });
 module.exports = router;
+
+
+// Delete song
+router.delete('/:songId', async(req, res) => {
+    try{
+        const removedSong = await Song.findByIdAndRemove(req.params.songId);
+        res.json(removedSong);
+    }catch(err){
+        res.json({message : err});
+    }
+})
