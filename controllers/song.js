@@ -34,4 +34,14 @@ router.post('/', async(req, res) => {
     }
 });
 
+//specific song
+router.get('/:songId', async(req, res) => {
+    try{
+        const song = await Song.findById(req.params.songId);
+        res.json(song);
+    }catch(err){
+        res.json({message : err});
+    }
+});
+
 module.exports = router;
