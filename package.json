@@ -1,0 +1,32 @@
+{
+  "name": "rezika",
+  "version": "1.0.0",
+  "description": "Api REstfull ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeliskyJ/R-zika-Song.git"
+  },
+  "keywords": [
+    "Api",
+    "nodejs",
+    "js",
+    "web"
+  ],
+  "author": "Hely Méndez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HeliskyJ/R-zika-Song/issues"
+  },
+  "homepage": "https://github.com/HeliskyJ/R-zika-Song#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18",
+    "nodemon": "^2.0.4"
+  }
+}
