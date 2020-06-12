@@ -1,7 +1,8 @@
 const connection = require('./models');
 const express = require('express');
 const app = express();
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 // import routes
 const songRoute = require('./controllers/song');
 app.use('/song', songRoute);
