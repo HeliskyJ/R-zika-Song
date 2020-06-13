@@ -3,7 +3,7 @@ const Song = require('../models/song.model');
 function index (req, res){
     //Get back songs
     // try {
-        Song.find()
+        Song.paginate({}, {page: req.query.page || 1, limit: 8, sort: {'position': 1}})
         .then(docs=>{
             res.json(docs);
         }).catch(err => {
