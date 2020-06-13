@@ -51,7 +51,7 @@ return uploader(path)
 }
 //save image
 SongSchema.methods.saveCoverUrl = function(secureUrl){
-    return this.frontcover = secureUrl;
+    this.frontcover = secureUrl;
     return this.save();
 }
 SongSchema.plugin(mongoosePaginate);
