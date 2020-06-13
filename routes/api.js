@@ -4,7 +4,9 @@ const songController = require('../controllers/SongsControllers');
 
 router.route('/')
 	.get(songController.index)
-	.post(songController.create)
+	.post(songController.multerMiddle(),
+	songController.create,
+	songController.saveImage)
 
 router.route('/:songId')
 	.get(songController.show)

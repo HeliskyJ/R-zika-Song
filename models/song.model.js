@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
+const uploader = require('../models/Uploader');
 
 const SongSchema = mongoose.Schema({
     title : {
@@ -43,7 +44,16 @@ const SongSchema = mongoose.Schema({
     }
 
 });
-
+//upload image
+SongSchema.methods.updateAvatar = function(path){
+return uploader(path)
+.then(secure_url => this.saveCoverUrl(secure_url));
+}
+//save image
+SongSchema.methods.saveCoverUrl = function(secureUrl){
+    return this.frontcover = secureUrl;
+    return this.save();
+}
 SongSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Song', SongSchema);

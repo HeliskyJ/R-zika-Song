@@ -1,18 +1,30 @@
 const Song = require('../models/song.model');
+const upload = require('../config/upload');
+const uploader = require('../models/Uploader');
+
+
+function find(req, res, next){
+    Song.findById(req.params.songId)
+    .then(song =>{
+        req.song = song;
+        next();
+    }).catch(err => {
+        next(err);
+    });
+}
 
 function index (req, res){
     //Get back songs
-    // try {
-        Song.paginate({}, {page: req.query.page || 1, limit: 8, sort: {'position': 1}})
-        .then(docs=>{
-            res.json(docs);
-        }).catch(err => {
-            console.log(err);
-        res.json({ message: err });
+    Song.paginate({}, {page: req.query.page || 1, limit: 8, sort: {'position': 1}})
+    .then(docs=>{
+        res.json(docs);
+    }).catch(err => {
+        console.log(err);
+     res.json({ message: err });
 })
 }
 
-function create(req, res){
+function create(req, res, next){
     //create new song
      Song.create({
         title: req.body.title,
@@ -25,10 +37,12 @@ function create(req, res){
         lenguage: req.body.lenguage,
         frontcover: req.body.frontcover,
         fav: req.body.fav
-    }).then(doc=>{
-        res.json(doc);
+    }).then(doc =>{
+        req.song = doc;
+        next();
     }).catch (err => {
-        res.json({ message: err });
+        console.log(err);
+        next(err);
     })
 }
 
@@ -60,8 +74,7 @@ function update(req, res){
         }).then(doc =>{
             res.json(doc);
         }).catch (err => {
-            console.log(err)
-        res.json({ message: err });
+            res.json({ message: err });
     })
 }
 
@@ -76,5 +89,32 @@ function destroy(req, res){
     });
 }
 
+function multerMiddle(){
+    return upload.single('frontcover');
+}
 
-module.exports = {index,show,create,destroy,update};
+function saveImage(req, res){
+    if(req.song){
+        if(req.file){
+            console.log('files' + req.file);
+            const path = req.file.path;
+            req.song.updateAvatar(path).then(result => {
+                console.log(result);
+                res.json(req.song);
+            })
+            // uploader(path).then(result => {
+            //     console.log(result);
+            //     res.json(req.song);
+            // }).catch(err => {
+            //     console.log(err);
+            //     res.json(err);
+            // })
+        }
+    }else{
+        res.status(422).json({
+            error: req.error || 'Could not save song'
+        });
+    }
+}
+
+module.exports = {index,show,create,destroy,update, multerMiddle, saveImage};
