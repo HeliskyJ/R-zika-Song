@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const {config, engine} = require('express-edge');
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({
+    extended : true
+}));
 // import Models
 const connection = require('./models');
 const Song = require('./models/song.model');
@@ -11,13 +14,19 @@ const songRoute = require('./routes/api');
 app.use('/song', songRoute);
 
 // static files
-app.use('/static', express.static(__dirname + '/public'));
+app.use(express.static('public'));
+//sets view engine and add not notation to app.render
+app.use(engine);
+app.set('views',`${__dirname}/views/`);
+
 //Routes
-app.get('/', (req, res)=>{
-    res.send('Iniciamos');
-});
+const dataRoute = require('./routes/wep');
+app.use('/', dataRoute);
+// app.get('/', (req, res)=>{
+//     res.render('index');
+// });
 
 //start server 
-app.listen('4000', ()=>{
+app.listen('5000', ()=>{
     console.log('server started');
 });
