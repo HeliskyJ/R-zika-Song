@@ -95,11 +95,9 @@ function multerMiddle(){
 
 function saveImage(req, res){
     if(req.song){
-        if(req.file){
-            console.log('files' + req.file);
-            const path = req.file.path;
+        if(req.body.file){
+            const path = req.body.file;
             req.song.updateAvatar(path).then(result => {
-                console.log(result);
                 res.json(req.song);
             })
             // uploader(path).then(result => {
@@ -117,4 +115,5 @@ function saveImage(req, res){
     }
 }
 
-module.exports = {index,show,create,destroy,update, multerMiddle, saveImage};
+module.exports = {index,show,create,destroy,update,multerMiddle, saveImage};
+// multerMiddle, 

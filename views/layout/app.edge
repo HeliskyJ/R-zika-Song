@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/webfonts">
+    <script src="../jquery-3.5.1.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../bootstrap.min.js"></script>
     <title>Rezika</title>
 </head>
 
@@ -24,8 +27,7 @@
     <div class="container-lg"><br>
         <div class="row">
             <div class="col mb-5">
-                <button class="btn btn-primary  btn-block">Agregar</button>
-            </div>
+              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar</button>            </div>
             <div class="col mb-7">
                 <form class="form">
                     <div class="row">
@@ -41,6 +43,107 @@
     </div>
     <div class="container-fluid">
         @!section('content')
-        <!-- JS, Popper.js, and jQuery -->
+  
+  <!-- Modal -->
+  <!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir Canción</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div><br>
+    <div class="modal-content">
+      <div class="container"><br>
+      <form action="/" method="POST" enctype=multipart/form-data>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <input type="file" class="form-control-file" name="frontcover">
+              </div></div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="title">Titulo</label>
+                  <input type="text" class="form-control" name="title" placeholder="Ej. This is america">
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="gender">Género</label>
+                    <input type="text" class="form-control" name="gender" placeholder="Ej. POP">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="duration">Duración</label>
+                    <input type="text" class="form-control" name="duration">
+                  </div>
+                </div></div>
+                <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="artists">Artista</label>
+                    <input type="text" class="form-control" name="artists" placeholder="Ej. Woo">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="release">Fecha de lanzamiendo</label>
+                    <input type="date" class="form-control" name="release">
+                  </div>
+                </div></div>
+                <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="position">Posición</label>
+                    <input type="number" class="form-control" name="position" placeholder="Ej. 1">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="rankingcountry">País de Ranking</label>
+                    <input type="text" class="form-control" name="rankingcountry" placeholder="Ej. Woo">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="lenguage">Idioma</label>
+                    <input type="text" class="form-control" name="lenguage" placeholder="Ej. inglés">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success">Añadir</button>
+              </div>
+            </form>
+          </div>
     </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- JS, Popper.js, and jQuery -->
+@if(respon == 'success')
+<script>
+  swal("Genial!", "Tú ingresaste una nueva canción!", "success", {
+  button: "urra!",
+});
+</script>
+@elseif(respon == 'wrong')
+<script>
+  swal("Fatal!", "Asegurate de enviar todos los datos!", "error", {
+  button: "Ok",
+});
+</script>
+@endif
+<script>
+$('#exampleModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+    </script>
 </html>

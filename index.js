@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const {config, engine} = require('express-edge');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended : true
+    extended : true,
+    // limit : '50mb'
 }));
 // import Models
 const connection = require('./models');
