@@ -4,7 +4,7 @@
 @each(song in data)
 @each(so in song)
             <div class="col mb-4">
-                <div class="card mb-3" style="max-width: 540px;">
+                <div class="card mb-3" style="max-width: 540px;" >
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <i class='fas fa-star' style='font-size:36px;color:wheat'></i>
@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title"><b>{{ so.title }}</b></h5>
+                                <h5 class="card-title"><b> <a href="/show/{{ so._id }}" >{{ so.title }}</a></b></h5>
                                 <p class="card-text">{{ so.artists }}</p>
                                 <p class="card-text">{{ so.position }}</p>
                                 <p class="card-text">{{ so.duration }}</p>

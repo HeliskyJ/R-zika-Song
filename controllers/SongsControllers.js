@@ -50,7 +50,19 @@ function show(req, res){
     //Specific song
         Song.findById(req.params.songId)
         .then(doc =>{
-            res.json(doc);
+            let song = {};
+            song._id = doc._id;
+            song.title =doc.title;
+            song.gender = doc.gender;
+            song.duration = doc.duration;
+            song.artists = doc.artists;
+            song.position = doc.position;
+            song.rankingcountry = doc.rankingcountry;
+            song.lenguage = doc.lenguage;
+            song.release = doc.daterelease;
+            song.frontcover =doc.frontcover;
+            song.fav = doc.fav;
+            res.json(song);
         }).catch(err =>{
             console.log(err);
             res.json({ message: err });

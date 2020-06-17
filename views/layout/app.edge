@@ -14,10 +14,10 @@
     <title>Rezika</title>
 </head>
 
-<body>
+<body style="background-color:#1A936F">
     <header>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand">Navbar</a>
+        <nav class="navbar" style="background-color:#114B5F">
+            <a class="navbar-brand font-weight-bold text-uppercase" style="color:white">Rêzika Song</a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -27,19 +27,19 @@
     <div class="container-lg"><br>
         <div class="row">
             <div class="col mb-5">
-              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar</button>            </div>
+              <button type="button" class="btn btn-block font-weight-bold text-uppercase" data-toggle="modal" data-target=".bd-example-modal-lg" style="background-color:#114B5F; color:white;">Agregar</button>            </div>
             <div class="col mb-7">
                 <form class="form">
                     <div class="row">
                         <div class="col mb6">
                             <input class="form-control " type="search" placeholder="Search">
                         </div>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <button class="btn btn-outline-light" type="submit">Search</button>
                     </div>
                 </form>
             </div>
         </div>
-        <hr>
+        <hr style="background-color:white">
     </div>
     <div class="container-fluid">
         @!section('content')
@@ -126,6 +126,12 @@
     </div>
   </div>
 </div>
+</div>
+<div class="jumbotron jumbotron-fluid" style="background-color:#1A936F; margin-bottom:-15px; color:white"><hr>
+  <div class="container">
+    <h1 class="display-4"></h1>
+    <p class="lead">Created by Hely Méndez.</p>
+  </div>
 </div>
 <!-- JS, Popper.js, and jQuery -->
 @if(respon == 'success')

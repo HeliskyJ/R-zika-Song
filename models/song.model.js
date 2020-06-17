@@ -54,6 +54,12 @@ SongSchema.methods.saveCoverUrl = function(secureUrl){
     this.frontcover = secureUrl;
     return this.save();
 }
+
+//return date YYY-mmn-dd
+SongSchema.virtual('daterelease')
+.get(function(){
+    return this.release.toISOString().substring(0,10);
+});
 SongSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Song', SongSchema);

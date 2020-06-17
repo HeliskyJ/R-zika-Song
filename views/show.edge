@@ -1,0 +1,62 @@
+@layout('layout.app')
+@section('content')
+<br><br><div class="row">
+    <div class="container-sm">
+        <a href="/?page=1">
+           <i class='fas fa-angle-left' style='font-size:48px;color:#114B5F'></i>
+        </a>
+        <div class="card">
+          <div class="row">
+              <div class="col">
+              <img src="{{ data.frontcover }}" alt="" width="300">
+              </div>
+              <div class="col"><br>
+              <h4 class="font-weight-bold text-capitalize" style="color:gray">{{data.artists}}</h4>
+              <h3 class="text-uppercase font-weight-bold text-monospace">{{ data.title }}</h3>
+              <h5 class="text-monospace" style="color:gray">{{ data.release }}</h5><br>
+              <div class="row">
+                  <div class="col">
+                    <button class="btn btn-danger" type="submit">
+                        <i class='fas fa-play' style='font-size:30px;color:white'></i> Play</button>
+                  </div>
+                  <div></div>
+                <div class="col">
+                    <a href="#">
+                      @if( data.fav == true )
+                        <span class="badge badge-light"><i class='fas fa-heart' style='font-size:48px;color:red'></i></span>
+                        @else
+                        <span class="badge badge-light"><i class='fas fa-heart' style='font-size:48px;color:gray'></i></span>
+                        @endif
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <span class="badge badge-light"><i class='fas fa-headphones' style='font-size:48px;color:gray'></i></span>
+                    </a>
+                  </div>         
+              </div><br><hr>
+              <div class="row">
+                  <div class="col">
+                    <a>
+                        <span class="badge badge-info">{{ data.gender }}</span>
+                    </a>
+                  </div>
+                  <div class="col">
+                      <a>
+                          Ranking #<span class="badge badge-warning">{{ data.position }}</span>
+                      </a>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron jumbotron-fluid" style="background-color:honeydew">
+            <div class="container">
+              <h1 class="display-4"></h1>
+              <p class="lead"></p>
+            </div>
+          </div>
+    </div>
+</div>
+    @endsection

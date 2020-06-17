@@ -52,4 +52,19 @@ function multerMiddle(){
         });
 }
 
-    module.exports = {index, create, multerMiddle}
+function show(req, res){
+  //specific song
+  let idsong = req.params.songId;
+  let url = "http://localhost:5000/song/"+idsong ;
+
+      fetch(url)
+      .then(res => res.json())
+      .then(data => {
+             res.render('show',{data})
+      }).catch(err =>{
+      console.log(error);
+
+  });
+}
+
+    module.exports = {index, create, multerMiddle, show}
