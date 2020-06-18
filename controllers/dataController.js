@@ -124,4 +124,31 @@ function edit(req, res){
         });
   }
 
-    module.exports = {index, create, multerMiddle, show, edit, update}
+  function remove(req, res){
+        //specific data song
+        let idsong = req.params.songId;
+        let url = "http://localhost:5000/song/"+idsong ;
+      
+            fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                   res.render('remove',{data})
+            }).catch(err =>{
+            console.log(error);     
+        });
+  }
+
+  async function destroy(req, res){
+    let songId = req.params.songId;
+   await fetch('http://localhost:5000/song/'+songId, {
+      method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(json => {
+      res.render('index', {respon: 'success'});
+    }).catch(error => {
+      res.render('index', {respon : 'wrong'});
+      console.log(error);
+    });
+  }
+    module.exports = {index, create, multerMiddle, show, edit, update, remove, destroy}

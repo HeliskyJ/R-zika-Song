@@ -24,6 +24,11 @@ function index (req, res){
 })
 }
 
+//multer upload image
+function multerMiddle(){
+    return upload.single('frontcover');
+}
+//middleware create new song and next save image
 function create(req, res, next){
     //create new song
      Song.create({
@@ -44,6 +49,29 @@ function create(req, res, next){
         console.log(err);
         next(err);
     })
+}
+
+//save image 
+function saveImage(req, res){
+    if(req.song){
+        if(req.body.file){
+            const path = req.body.file;
+            req.song.updateAvatar(path).then(result => {
+                res.json(req.song);
+            })
+            // uploader(path).then(result => {
+            //     console.log(result);
+            //     res.json(req.song);
+            // }).catch(err => {
+            //     console.log(err);
+            //     res.json(err);
+            // })
+        }
+    }else{
+        res.status(422).json({
+            error: req.error || 'Could not save song'
+        });
+    }
 }
 
 function show(req, res){
@@ -92,7 +120,6 @@ function update(req, res){
 
 function destroy(req, res){
     //Remove song
-
        Song.findByIdAndRemove(req.params.songId).then(doc => {
            res.json(doc);
        }).catch (err => {
@@ -101,31 +128,30 @@ function destroy(req, res){
     });
 }
 
-function multerMiddle(){
-    return upload.single('frontcover');
-}
 
-function saveImage(req, res){
-    if(req.song){
-        if(req.body.file){
-            const path = req.body.file;
-            req.song.updateAvatar(path).then(result => {
-                res.json(req.song);
-            })
-            // uploader(path).then(result => {
-            //     console.log(result);
-            //     res.json(req.song);
-            // }).catch(err => {
-            //     console.log(err);
-            //     res.json(err);
-            // })
-        }
+async function search(req, res){
+    //search song
+    console.log('palabra'+req.params.search);
+let searching = req.params.search;
+let rank = '0';
+    if(Number(searching)){
+        rank = searching;
     }else{
-        res.status(422).json({
-            error: req.error || 'Could not save song'
-        });
+       rank = '0';
     }
+
+   await Song.find({ $or:[
+    {'title': new RegExp(searching, 'i') }, {'artists': new RegExp(searching, 'i')}, {'position': rank }
+   ] },function(err, result){
+
+        if(err){
+            (res.send(err))
+        }
+        else{
+            res.json(result)
+        }
+})
 }
 
-module.exports = {index,show,create,destroy,update,multerMiddle, saveImage};
+module.exports = {index,show,create,destroy,update,multerMiddle, saveImage, search};
 // multerMiddle, 
