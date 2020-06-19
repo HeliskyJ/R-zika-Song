@@ -129,29 +129,85 @@ function destroy(req, res){
 }
 
 
-async function search(req, res){
-    //search song
-    console.log('palabra'+req.params.search);
-let searching = req.params.search;
-let rank = '0';
-    if(Number(searching)){
-        rank = searching;
+// async function search(req, res){
+//     //search song
+//     console.log('palabra'+req.params.search);
+// let searching = req.params.search;
+// let rank = '0';
+//     if(Number(searching)){
+//         rank = searching;
+//     }else{
+//        rank = '0';
+//     }
+
+//    await Song.find({ $or:[
+//     {'title': new RegExp(searching, 'i') }, {'artists': new RegExp(searching, 'i')}, {'position': rank }
+//    ] },function(err, result){
+
+//         if(err){
+//             (res.send(err))
+//         }
+//         else{
+//             res.json(result)
+//         }
+// })
+// }
+
+function autocomplete(req, res, next){
+    var regex = new RegExp(req.query["term"], 'i');
+    let rank = '0';
+    if(Number(req.query['term'])){
+        rank = req.query['term'];
     }else{
        rank = '0';
     }
 
-   await Song.find({ $or:[
-    {'title': new RegExp(searching, 'i') }, {'artists': new RegExp(searching, 'i')}, {'position': rank }
-   ] },function(err, result){
-
-        if(err){
-            (res.send(err))
+    var songfilter = Song.find({$or:[
+        {title : regex}, {'title': 1},
+        {artists : regex}, {'artists': 1},
+        {position : rank}, {'position': 1}
+    
+    ]}).sort({'position' : 1}).limit(20);
+    songfilter.exec(function(err, data){
+        
+        var result = [];
+        if(!err){
+            if(data && data.length && data.length > 0){
+                data.forEach(song => {
+                    let obj = {
+                      id : song._id,
+                      label : song.title
+                    };
+                    result.push(obj);
+                });
+            }
+            res.jsonp(result);
         }
-        else{
-            res.json(result)
-        }
-})
+    });
 }
 
-module.exports = {index,show,create,destroy,update,multerMiddle, saveImage, search};
+
+function search(req, res){
+    //Specific song
+        Song.findById(req.query.searchID)
+        .then(doc =>{
+            let song = {};
+            song._id = doc._id;
+            song.title =doc.title;
+            song.gender = doc.gender;
+            song.duration = doc.duration;
+            song.artists = doc.artists;
+            song.position = doc.position;
+            song.rankingcountry = doc.rankingcountry;
+            song.lenguage = doc.lenguage;
+            song.release = doc.daterelease;
+            song.frontcover =doc.frontcover;
+            song.fav = doc.fav;
+            res.json(song);
+        }).catch(err =>{
+            console.log(err);
+            res.json({ message: err });
+    })
+}
+module.exports = {index,show,create,destroy,update,multerMiddle, saveImage, search, autocomplete};
 // multerMiddle, 

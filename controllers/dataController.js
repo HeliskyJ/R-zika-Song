@@ -151,4 +151,44 @@ function edit(req, res){
       console.log(error);
     });
   }
-    module.exports = {index, create, multerMiddle, show, edit, update, remove, destroy}
+
+
+function search(req, res){
+    //specific song
+    let idsong = req.query.searchID;
+    console.log(idsong);
+    let url = "http://localhost:5000/song/search/buscar?searchID="+idsong ;
+  
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+               res.render('show',{data})
+        }).catch(err =>{
+        console.log(error);
+  
+    });
+  }
+
+
+  // function autocomplete(req, res, next){
+  //   var regex = new RegExp(req.query["term"], 'i');
+
+  //   var songfilter = Song.find({title : regex}, {'name': 1}).sort({'position' : 1}).limit(20);
+  //   songfilter.exec(function(err, data){
+  //       console.log(data);
+  //       var result = [];
+  //       if(!err){
+  //           if(data && data.length && data.length > 0){
+  //               data.forEach(song => {
+  //                   let obj = {
+  //                     id : song._id,
+  //                     label : song.title
+  //                   };
+  //                   result.push(obj);
+  //               });
+  //           }
+  //           res.jsonp(result);
+  //       }
+  //   });
+// }
+    module.exports = {index, create, multerMiddle, show, edit, update, remove, destroy, search}

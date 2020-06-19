@@ -11,6 +11,8 @@ router.route('/edit/:songId').get(songController.edit);
 router.route('/update/:songId').post(songController.update);
 router.route('/remove/:songId').get(songController.remove);
 router.route('/destroy/:songId').post(songController.destroy);
+router.route('/search/').get(songController.search);
+
     
 
     module.exports = router;

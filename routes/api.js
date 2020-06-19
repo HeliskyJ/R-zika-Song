@@ -13,4 +13,7 @@ router.route('/:songId')
 	.patch(songController.update)
 	.delete(songController.destroy);
 
+	router.route('/autocomplete/p/p').get(songController.autocomplete);
+router.route('/search/buscar/').get(songController.search);
+
     module.exports = router;
