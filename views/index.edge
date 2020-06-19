@@ -1,8 +1,8 @@
 @layout('layout.app')
 @section('content')
 <div class="row row-cols-md-4">
-@each(song in data)
-@each(so in song)
+
+@each(so in data.docs)
             <div class="col mb-4">
                 <div class="card mb-3" style="max-width: 540px;" >
                     <div class="row no-gutters">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             @endeach
-            @endeach
+
         </div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination pagination-lg justify-content-center">
