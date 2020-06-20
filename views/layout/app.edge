@@ -47,7 +47,6 @@
     </div>
     <div class="container-fluid">
         @!section('content')
-  
   <!-- Modal -->
   <!-- Large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -138,15 +137,15 @@
   </div>
 </div>
 <!-- JS, Popper.js, and jQuery -->
-@if(respon == 'success')
+@if(res.status == 200)
 <script>
-  swal("Genial!", "Tú ingresaste una nueva canción!", "success", {
+  swal("Genial!", "Operación Realizada con Éxito!", "success", {
   button: "urra!",
 });
 </script>
 @elseif(respon == 'wrong')
 <script>
-  swal("Fatal!", "Asegurate de enviar todos los datos!", "error", {
+  swal("Fatal!", "Algo anda mal.", "error", {
   button: "Ok",
 });
 </script>

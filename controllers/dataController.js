@@ -24,7 +24,6 @@ function multerMiddle(){
 
  async function create(req, res){
    let file = req.file
-   console.log(file.path)
     let song  = req.body;
 
     const body = {
@@ -45,7 +44,8 @@ function multerMiddle(){
         })
         .then(res => res.json())
         .then(json => {
-         res.render('index', {respon : 'success'});
+          res.redirect('/show/'+json._id);
+        //  res.render('index', {respon : 'success'});
         })
         .catch(error => {
           res.render('index', {respon : 'wrong'});
@@ -91,8 +91,6 @@ function edit(req, res){
   //  }else{
   //    file = req.body.frontcover
   //  }
-  console.log(req);
-  console.log('request'+req.body)
   let song = req.body;
   let idsong = req.params.songId;
     const body = {
@@ -116,7 +114,9 @@ function edit(req, res){
         })
         .then(res => res.json())
         .then(json => {
-         res.render('index', {respon : 'success'});
+          res.redirect('/show/'+idsong);
+          // res.sendStatus(200)
+        //  res.render('index', {respon : 'success'});
         })
         .catch(error => {
           res.render('index', {respon : 'wrong'});
@@ -145,7 +145,7 @@ function edit(req, res){
     })
     .then(res => res.json())
     .then(json => {
-      res.render('index', {respon: 'success'});
+      res.redirect('/?page=1')
     }).catch(error => {
       res.render('index', {respon : 'wrong'});
       console.log(error);

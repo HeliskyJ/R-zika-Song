@@ -8,13 +8,13 @@
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <i class='fas fa-star' style='font-size:36px;color:wheat'></i>
-                            <img src="{{ so.frontcover }}" class="card-img" alt="...">
+                            <img src="{{ so.frontcover }}" class="card-img" alt="..." width="40px">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title"><b> <a href="/show/{{ so._id }}" >{{ so.title }}</a></b></h5>
                                 <p class="card-text">{{ so.artists }}</p>
-                                <p class="card-text">{{ so.position }}</p>
+                                <p class="card-text"><b>TOP</b> {{ so.position }}</p>
                                 <p class="card-text">{{ so.duration }}</p>
                                 <p class="card-text">
                                 <a href="/edit/{{ so._id }}" style="margin-left:80%">
